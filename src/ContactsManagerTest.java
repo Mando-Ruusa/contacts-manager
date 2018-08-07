@@ -1,3 +1,5 @@
+// class tester with main method
+
 public class ContactsManagerTest {
 
     public static void main(String[] args) {

@@ -1,3 +1,6 @@
+
+    // class blueprint/framework
+
 import java.util.ArrayList;
 
 public class ContactsManager {
