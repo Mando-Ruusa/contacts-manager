@@ -2,10 +2,8 @@
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
@@ -14,7 +12,7 @@ import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-
+import java.io.InputStreamReader;
 
 
 
@@ -23,7 +21,7 @@ public class ContactsManagerTest {
 
     public static void main(String[] args) throws IOException {
         Path contactsPath = Paths.get("src/", "contacts.txt");
-        ArrayList<Contact> contactList = new ArrayList<>(); //empty arraylist to add contacts
+        ArrayList<Contact> contactsList = new ArrayList<>(); //empty arraylist to add contacts
 
         Contact contact = new Contact();
         int action = 0; //initialize user entry to 0;
@@ -32,6 +30,7 @@ public class ContactsManagerTest {
 //             System.out.println(contact1.getName());
 
         while (action != 5) {
+
 
             System.out.println("\n[1] View contacts");
             System.out.println("\n[2] Add a new contact");
@@ -94,6 +93,8 @@ public class ContactsManagerTest {
                 }
 
                 break;
+
+
 //                            try {
 //                                List<String> contents = Files.readAllLines(
 //                                Paths.get( "contacts.txt")
@@ -104,10 +105,6 @@ public class ContactsManagerTest {
 //                                System.out.println("Exception!");
 //                                e.printStackTrace();
 //                            }
-
-
-
-
 
 
                 case 2: {
@@ -124,8 +121,8 @@ public class ContactsManagerTest {
                     contact.setPhoneNumber(phoneNumber.toLowerCase());
 
 //adding new contact to list
-                    contactList.add(contact);
-
+                    contactsList.add(contact);
+                    System.out.println(contactsList);
 
                     try {
 
@@ -145,9 +142,7 @@ public class ContactsManagerTest {
                         }
 
                         System.out.println("new contact added successfully");
-                    }
-
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -192,22 +187,84 @@ public class ContactsManagerTest {
                         if (noMatches) {
                             System.out.println("\nNO MATCH FOUND.\n");
                         }
-                    }
-
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         System.out.println("IO Error Occurred: " + e.toString());
                     }
 
                     break;
 
+                case 4:
+
+                    System.out.println("\n Enter the name to be deleted.");
+
+                    String userInput = reader.next();
+
+
+                    if(contactsList.contains(userInput)) {
+                        contactsList.remove(userInput);
+
+                        System.out.println(contactsList);
+                    }
+
+                    // PrintWriter object for output.txt
+                    PrintWriter pw = new PrintWriter("output.txt");
+
+                    // BufferedReader object for input.txt
+                    BufferedReader br1 = new BufferedReader(new FileReader("contacts.txt"));
+
+                    String line1 = br1.readLine();
+
+                    // loop for each line of input.txt
+                    while (line1 != null) {
+                        boolean flag = false;
+
+                        // BufferedReader object for delete.txt
+                        BufferedReader br2 = new BufferedReader(new FileReader("contacts.txt"));
+
+                        String line2 = br2.readLine();
+
+                        // loop for each line of delete.txt
+                        while (line2 != null) {
+                            if (line1.equals(line2)) {
+                                flag = true;
+                                break;
+                            }
+
+                            line2 = br2.readLine();
+                        }
+
+                        // if flag = false
+                        // write line of input.txt to output.txt
+                        if (!flag)
+                            pw.println(line1);
+
+                        line1 = br1.readLine();
+
+                    }
+
+                    pw.flush();
+
+                    // closing resources
+                    br1.close();
+                    pw.close();
+
+                    System.out.println("File operation performed successfully");
+            }
+        }
+
+
             }
 
 
+        }
 
 
 
 
-                }
-            }
 
-    }
+
+
+
+
+
+

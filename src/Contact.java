@@ -14,7 +14,7 @@ public class Contact {
 
     private String name;
     private String phoneNumber; //string for numbers to accomodate the dash.
-//    private ArrayList<String> ContactsList = new ArrayList<>(); // constructor for arraylist.
+    private ArrayList<String> ContactsList = new ArrayList<>(); // constructor for arraylist.
 
     // Consturctor to create new contacts
     public Contact(){
@@ -47,7 +47,9 @@ public class Contact {
 //        this.ContactsList = new ArrayList<>();
 //    }
 
+        public void deleteName(){
 
+        }
 
     // overrides the default Object method
     public String toString() {
