@@ -68,8 +68,8 @@ public class Contact {
 
             File file = new File("contacts.txt");
 
-            String directory = "data";
-            String filename = "info.txt";
+            String directory = "contactsDirectory";
+            String filename = "contacts.txt";
             Path contactsDirectory = Paths.get(directory);
             Path contactsFile = Paths.get(directory, filename);
             //if directory does not exist, will create new directory
