@@ -4,10 +4,25 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
+import java.util.TreeSet;
+import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+
+
+
 
 public class ContactsManagerTest {
 
     public static void main(String[] args) throws IOException {
+        Path contactsPath = Paths.get("src/", "contacts.txt");
         ArrayList<Contact> contactList = new ArrayList<>(); //empty arraylist to add contacts
 
         Contact contact = new Contact();
@@ -36,9 +51,65 @@ public class ContactsManagerTest {
             }
 
             switch (action) {
+
                 case 1: {
 
+                    int counter = 0;
+                    String line = null;
+
+                    // Location of file to read
+                    File file = new File("contacts.txt");
+
+                    // Sort contacts and print to console
+                    try {
+
+                        Scanner scanner = new Scanner(file);
+
+                        // Before printing, add each line to a sorted set. by Seth
+                        // Copeland
+                        Set<String> lines = new TreeSet<>();
+                        while (scanner.hasNextLine()) {
+                            line = scanner.nextLine();
+                            lines.add(line);
+                            counter++;
+
+                        }
+
+                        // Print sorted contacts to console.
+                        for (String fileLine : lines) {
+                            String outlook = fileLine.substring(0, 1).toUpperCase()
+                                    + fileLine.substring(1);
+                            System.out.println(outlook);
+
+                        }
+
+
+                        scanner.close();
+
+                    } catch (FileNotFoundException e) {
+
+                    }
+                    System.out.println("\n" + counter + " contacts in records.");
+
                 }
+
+                break;
+//                            try {
+//                                List<String> contents = Files.readAllLines(
+//                                Paths.get( "contacts.txt")
+//                                );
+//                            } catch(IOException e) {
+//                                e.printStackTrace();
+//                            } catch (Exception e) {
+//                                System.out.println("Exception!");
+//                                e.printStackTrace();
+//                            }
+
+
+
+
+
+
                 case 2: {
                     System.out.println("Enter contact's first and last name:  ");
                     String name = reader.next();
@@ -129,7 +200,7 @@ public class ContactsManagerTest {
 
                     break;
 
-
+            }
 
 
 
@@ -139,4 +210,4 @@ public class ContactsManagerTest {
                 }
             }
 
-    }}
+    }
